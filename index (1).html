@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeri Interaktif: Kembara Ensembel Muzik Tradisional Melayu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Fredoka', 'Plus Jakarta Sans', sans-serif;
+            background-color: #FEF08A;
+            background-image: 
+                radial-gradient(#FACC15 15%, transparent 16%),
+                radial-gradient(#FACC15 15%, transparent 16%);
+            background-size: 60px 60px;
+            background-position: 0 0, 30px 30px;
+            user-select: text;
+        }
+
+        .minion-card {
+            background-color: #ffffff;
+            border: 4px solid #1E3A8A;
+            box-shadow: 0px 8px 0px #1E3A8A;
+            border-radius: 1.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .minion-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 10px 0px #1E3A8A;
+        }
+
+        .btn-minion-primary {
+            background: linear-gradient(180deg, #22C55E 0%, #15803D 100%);
+            border: 4px solid #14532D;
+            box-shadow: 0px 6px 0px #14532D;
+            color: white;
+            font-weight: 700;
+            border-radius: 9999px;
+            transition: all 0.15s ease;
+        }
+
+        .btn-minion-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 8px 0px #14532D;
+            filter: brightness(1.05);
+        }
+
+        .btn-minion-gold {
+            background: linear-gradient(180deg, #FACC15 0%, #CA8A04 100%);
+            border: 4px solid #854D0E;
+            box-shadow: 0px 6px 0px #854D0E;
+            color: #422006;
+            font-weight: 700;
+            border-radius: 9999px;
+            transition: all 0.15s ease;
+        }
+
+        .btn-minion-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 8px 0px #854D0E;
+            filter: brightness(1.05);
+        }
+
+        .btn-minion-blue {
+            background: linear-gradient(180deg, #3B82F6 0%, #1D4ED8 100%);
+            border: 4px solid #1E3A8A;
+            box-shadow: 0px 6px 0px #1E3A8A;
+            color: white;
+            font-weight: 700;
+            border-radius: 9999px;
+            transition: all 0.15s ease;
+        }
+
+        .btn-minion-pink {
+            background: linear-gradient(180deg, #EC4899 0%, #BE185D 100%);
+            border: 4px solid #831843;
+            box-shadow: 0px 6px 0px #831843;
+            color: white;
+            font-weight: 700;
+            border-radius: 9999px;
+            transition: all 0.15s ease;
+        }
+
+        .wood-stage {
+            background: #854D0E;
+            background-image: repeating-linear-gradient(45deg, #713F12 0, #713F12 10px, #854D0E 10px, #854D0E 20px);
+            border: 6px solid #422006;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.4);
+        }
+
+        @keyframes floatUpDown {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(1.5deg); }
+        }
+
+        .mascot-bounce {
+            animation: floatUpDown 3s ease-in-out infinite;
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 30px;
+            border-width: 15px 15px 0;
+            border-style: solid;
+            border-color: #ffffff transparent;
+            display: block;
+            width: 0;
+        }
+
+        /* Mascot Joyful Victory Jump & Shake Animations */
+        @keyframes happyJump {
+            0% { transform: translateY(0) scale(1); }
+            20% { transform: translateY(-20px) scale(1.1) rotate(-5deg); }
+            40% { transform: translateY(0) scale(0.95) rotate(5deg); }
+            60% { transform: translateY(-12px) scale(1.05) rotate(-3deg); }
+            80% { transform: translateY(0) scale(0.98) rotate(2deg); }
+            100% { transform: translateY(0) scale(1) rotate(0); }
+        }
+
+        @keyframes sadShake {
+            0% { transform: translateX(0) rotate(0deg); }
+            20% { transform: translateX(-10px) rotate(-6deg); }
+            40% { transform: translateX(10px) rotate(6deg); }
+            60% { transform: translateX(-8px) rotate(-4deg); }
+            80% { transform: translateX(8px) rotate(4deg); }
+            100% { transform: translateX(0) rotate(0deg); }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 15px #FACC15, 0 0 30px #F59E0B; }
+            50% { box-shadow: 0 0 25px #EF4444, 0 0 45px #FACC15; }
+        }
+
+        .anim-happy {
+            animation: happyJump 0.8s ease-in-out !important;
+        }
+
+        .anim-sad {
+            animation: sadShake 0.6s ease-in-out !important;
+        }
+
+        .streak-glow {
+            animation: pulseGlow 1.5s infinite alternate;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-800 flex flex-col justify-between overflow-x-hidden">
+
+    <!-- Confetti & Celebration Canvas Layer -->
+    <canvas id="confettiCanvas" class="fixed inset-0 pointer-events-none z-50 w-full h-full"></canvas>
+
+    <!-- Top Header Bar -->
+    <header class="bg-blue-600 border-b-4 border-blue-900 px-4 py-3 text-white flex justify-between items-center shadow-lg sticky top-0 z-50">
+        <div class="flex items-center space-x-3">
+            <div class="bg-yellow-400 text-blue-900 p-2 rounded-full border-2 border-blue-900 font-black text-xl w-10 h-10 flex items-center justify-center">
+                🍌
+            </div>
+            <div>
+                <h1 class="font-bold text-lg md:text-xl leading-tight text-yellow-300 drop-shadow">KEMBARA ENSEMBEL MUZIK TRADISIONAL</h1>
+                <p class="text-xs text-blue-100 hidden sm:block">Pendidikan Muzik Tahun 4 | Bersama Cikgu Raudhah</p>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-3">
+            <div class="bg-blue-800 text-yellow-300 font-bold px-3 py-1 rounded-full border-2 border-blue-950 text-sm">
+                Slaid <span id="currentSlideNum">1</span> / 9
+            </div>
+        </div>
+    </header>
+
+    <!-- Modal Popup Custom Notification (With Mascot Reactions & Retry Options) -->
+    <div id="customModal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center hidden p-4">
+        <div id="modalBox" class="bg-white border-4 border-blue-900 rounded-2xl p-6 max-w-sm w-full text-center shadow-2xl transform scale-100 transition-all relative overflow-hidden">
+            
+            <!-- Animated Mascot Avatar Header in Modal -->
+            <div class="flex justify-center mb-2">
+                <div id="modalMascotAvatar" class="w-24 h-24 bg-yellow-300 rounded-full border-4 border-blue-900 flex items-center justify-center text-5xl shadow-md transition-transform">
+                    👩‍🏫
+                </div>
+            </div>
+
+            <h3 id="modalTitle" class="text-xl font-extrabold text-blue-900 mb-1">Maklumat</h3>
+            <p id="modalMessage" class="text-sm font-bold text-slate-700 mb-5 leading-relaxed"></p>
+            
+            <div class="flex gap-2 justify-center" id="modalActions">
+                <button id="modalPrimaryBtn" onclick="closeModal()" class="btn-minion-gold px-6 py-2.5 text-sm w-full font-extrabold">FAHAM!</button>
+            </div>
+        </div>
+    </div>
+
+    <main class="container mx-auto px-4 py-6 flex-grow flex items-center justify-center max-w-5xl">
+        
+        <!-- ================= SLAID 1: MUKA HADAPAN (CIKGU RAUDHAH) ================= -->
+        <section id="slide-1" class="w-full slide-content block">
+            <div class="minion-card bg-yellow-300 p-6 md:p-10 border-4 border-blue-900 relative overflow-hidden text-center">
+                
+                <div class="bg-pink-600 text-white py-2 px-6 rounded-full inline-block font-bold border-2 border-blue-950 mb-4 shadow-md text-sm md:text-base">
+                    🎵 PENDIDIKAN MUZIK TAHUN 4 (SK/SJK)
+                </div>
+
+                <h1 class="text-3xl md:text-5xl font-black text-blue-900 mb-2 leading-tight drop-shadow-md">
+                    GALERI INTERAKTIF:<br>
+                    <span class="text-amber-700 bg-yellow-100 px-4 py-1 rounded-2xl border-2 border-amber-800 inline-block mt-2">
+                        KEMBARA ENSEMBEL MUZIK TRADISIONAL MELAYU
+                    </span>
+                </h1>
+                
+                <p class="text-blue-950 font-semibold text-lg md:text-xl mt-3 mb-6">
+                    Terokai & Ulas Warna Ton Bunyi Bersama Cikgu Raudhah! 👩‍🏫✨
+                </p>
+
+                <!-- Graphic Section: Stage & Mascot Cikgu Raudhah -->
+                <div class="wood-stage rounded-3xl p-6 mb-8 text-white relative flex flex-col md:flex-row items-center justify-around gap-6">
+                    
+                    <!-- Minion Mascot: Cikgu Raudhah -->
+                    <div id="landingMascot" class="flex flex-col items-center mascot-bounce cursor-pointer" onclick="triggerMascotJoy('landingMascot')">
+                        <div class="relative w-44 h-52">
+                            <!-- Minion Body in Hijab/Tudung -->
+                            <div class="w-32 h-44 bg-yellow-400 rounded-t-full rounded-b-3xl border-4 border-blue-950 mx-auto relative overflow-hidden shadow-inner">
+                                <!-- Eyes & Cute Goggles/Glasses -->
+                                <div class="w-full bg-slate-800 h-6 absolute top-14 border-y-2 border-black flex items-center justify-center">
+                                    <div class="w-14 h-14 bg-pink-300 rounded-full border-4 border-pink-500 flex items-center justify-center -mt-1 shadow-md">
+                                        <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center border-2 border-slate-700">
+                                            <div id="landingMascotEye" class="w-4 h-4 bg-amber-900 rounded-full relative transition-all">
+                                                <div class="w-1.5 h-1.5 bg-white rounded-full absolute top-0.5 right-0.5"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Friendly Smile -->
+                                <div class="w-8 h-4 border-b-4 border-blue-950 rounded-b-full mx-auto mt-26"></div>
+                                <!-- Baju Kurung Floral Pattern -->
+                                <div class="w-full h-12 bg-pink-500 absolute bottom-0 border-t-2 border-pink-800 flex justify-around items-center">
+                                    <span class="text-xs">🌸</span>
+                                    <span class="text-xs">✨</span>
+                                    <span class="text-xs">🌸</span>
+                                </div>
+                            </div>
+                            <!-- Tudung Hijab Draped over head -->
+                            <div class="w-36 h-20 bg-pink-600 rounded-t-full absolute top-0 left-4 border-2 border-pink-900 shadow-md flex items-center justify-center">
+                                <div class="w-20 h-3 bg-pink-400 rounded-full -mt-10"></div>
+                            </div>
+                        </div>
+                        <span class="bg-pink-600 text-white font-extrabold text-sm px-4 py-1.5 rounded-full border-2 border-blue-900 mt-2 shadow flex items-center gap-1">
+                            👩‍🏫 Cikgu Raudhah (Klik Saya!)
+                        </span>
+                    </div>
+
+                    <!-- Speech Box -->
+                    <div class="bg-white text-blue-950 p-5 rounded-2xl border-4 border-blue-900 max-w-md text-left relative speech-bubble shadow-lg">
+                        <h3 class="font-extrabold text-lg text-pink-700 mb-1">"Salam Sejahtera & Bello! 👋"</h3>
+                        <p class="text-sm md:text-base font-medium leading-relaxed text-slate-700">
+                            Saya <b>Cikgu Raudhah</b>! Mari bersama-sama saya meneroka 4 jenis ensembel muzik tradisional Melayu, mendengar warna ton bunyinya, dan menjawab kuiz menarik!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Interactive Button -->
+                <button onclick="goToSlide(2)" class="btn-minion-primary text-xl md:text-2xl px-10 py-4 inline-flex items-center space-x-3 cursor-pointer">
+                    <span>MULA KEMBARA</span>
+                    <i class="fas fa-play-circle text-2xl"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- ================= SLAID 2: PETA GALERI ================= -->
+        <section id="slide-2" class="w-full slide-content hidden">
+            <div class="minion-card bg-sky-100 p-6 md:p-8 border-4 border-blue-900">
+                
+                <div class="text-center mb-6">
+                    <span class="bg-yellow-400 text-blue-950 px-4 py-1 rounded-full font-bold border-2 border-blue-900 text-xs md:text-sm">
+                        🗺 HUB UTAMA NAVIGASI
+                    </span>
+                    <h2 class="text-2xl md:text-4xl font-extrabold text-blue-900 mt-2">
+                        PILIH ENSEMBEL MUZIK TRADISIONAL MELAYU
+                    </h2>
+                    <p class="text-slate-600 font-medium text-sm md:text-base">Klik mana-mana kad di bawah untuk memulakan penerokaan ulasan bunyi bersama Cikgu Raudhah!</p>
+                </div>
+
+                <!-- Grid 2x2 Ensemble Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    
+                    <div onclick="goToSlide(3)" class="bg-amber-50 hover:bg-amber-100 border-4 border-amber-800 rounded-2xl p-5 cursor-pointer transition transform hover:-translate-y-2 shadow-md flex items-center space-x-4">
+                        <div class="w-20 h-20 bg-amber-400 border-2 border-amber-900 rounded-xl flex items-center justify-center text-4xl shadow-inner flex-shrink-0">
+                            🔔
+                        </div>
+                        <div>
+                            <span class="bg-amber-200 text-amber-900 text-xs font-bold px-2.5 py-0.5 rounded-full border border-amber-700">Keluarga Idiofon</span>
+                            <h3 class="text-xl font-bold text-amber-950 mt-1">1. ENSEMBEL GAMELAN</h3>
+                            <p class="text-xs text-amber-800 mt-1">Alat logam berdenting seperti Bonang, Saron & Gong.</p>
+                        </div>
+                    </div>
+
+                    <div onclick="goToSlide(5)" class="bg-red-50 hover:bg-red-100 border-4 border-red-800 rounded-2xl p-5 cursor-pointer transition transform hover:-translate-y-2 shadow-md flex items-center space-x-4">
+                        <div class="w-20 h-20 bg-red-400 border-2 border-red-900 rounded-xl flex items-center justify-center text-4xl shadow-inner flex-shrink-0">
+                            🥁
+                        </div>
+                        <div>
+                            <span class="bg-red-200 text-red-900 text-xs font-bold px-2.5 py-0.5 rounded-full border border-red-700">Keluarga Membranofon</span>
+                            <h3 class="text-xl font-bold text-red-950 mt-1">2. ENSEMBEL KOMPANG</h3>
+                            <p class="text-xs text-red-800 mt-1">Gendang bingkai kulit dipalu beramai-ramai.</p>
+                        </div>
+                    </div>
+
+                    <div onclick="goToSlide(6)" class="bg-emerald-50 hover:bg-emerald-100 border-4 border-emerald-800 rounded-2xl p-5 cursor-pointer transition transform hover:-translate-y-2 shadow-md flex items-center space-x-4">
+                        <div class="w-20 h-20 bg-emerald-400 border-2 border-emerald-900 rounded-xl flex items-center justify-center text-4xl shadow-inner flex-shrink-0">
+                            🎋
+                        </div>
+                        <div>
+                            <span class="bg-emerald-200 text-emerald-900 text-xs font-bold px-2.5 py-0.5 rounded-full border border-emerald-700">Keluarga Idiofon</span>
+                            <h3 class="text-xl font-bold text-emerald-950 mt-1">3. ENSEMBEL ANGKLUNG</h3>
+                            <p class="text-xs text-emerald-800 mt-1">Alat bambu/buluh digoyang mengeluarkan getaran merdu.</p>
+                        </div>
+                    </div>
+
+                    <div onclick="goToSlide(7)" class="bg-purple-50 hover:bg-purple-100 border-4 border-purple-800 rounded-2xl p-5 cursor-pointer transition transform hover:-translate-y-2 shadow-md flex items-center space-x-4">
+                        <div class="w-20 h-20 bg-purple-400 border-2 border-purple-900 rounded-xl flex items-center justify-center text-4xl shadow-inner flex-shrink-0">
+                            🎺
+                        </div>
+                        <div>
+                            <span class="bg-purple-200 text-purple-900 text-xs font-bold px-2.5 py-0.5 rounded-full border border-purple-700">Keluarga Aerofon</span>
+                            <h3 class="text-xl font-bold text-purple-950 mt-1">4. ENSEMBEL SERUNAI</h3>
+                            <p class="text-xs text-purple-800 mt-1">Alat tiupan seruling kayu/daun bernada nyaring.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="flex justify-between items-center border-t-2 border-slate-300 pt-4">
+                    <button onclick="goToSlide(1)" class="btn-minion-blue px-6 py-2.5 text-sm flex items-center space-x-2">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>Kembali ke Muka Hadapan</span>
+                    </button>
+
+                    <button onclick="goToSlide(8)" class="btn-minion-gold px-6 py-3 text-base flex items-center space-x-2">
+                        <span>KUIZ PENILAIAN</span>
+                        <i class="fas fa-graduation-cap"></i>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= SLAID 3: GAMELAN ================= -->
+        <section id="slide-3" class="w-full slide-content hidden">
+            <div class="minion-card bg-amber-50 p-6 border-4 border-amber-900">
+                
+                <div class="flex items-center justify-between mb-4 border-b-2 border-amber-200 pb-3">
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-amber-900 flex items-center gap-2">
+                        <span>🔔</span> 1. ENSEMBEL GAMELAN MELAYU
+                    </h2>
+                    <span class="bg-amber-200 text-amber-900 font-bold px-3 py-1 rounded-full text-xs border border-amber-800">
+                        DSKP 4.2.1
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <!-- Media Screen Player & File Upload -->
+                    <div class="bg-slate-900 rounded-2xl p-4 text-white border-4 border-slate-800 shadow-inner flex flex-col justify-between">
+                        
+                        <div class="relative w-full h-52 bg-slate-950 rounded-xl overflow-hidden border-2 border-amber-500/50 flex flex-col items-center justify-center p-2 text-center">
+                            <!-- Native Video Player Container -->
+                            <video id="gamelanVideoPlayer" class="w-full h-full object-contain rounded-lg bg-black" controls preload="metadata" playsinline><source src="media/gamelan.mp4" type="video/mp4">Pelayar anda tidak menyokong video HTML5.</video>
+                            <canvas id="gamelanCanvas" class="hidden"></canvas>
+                            
+                            <div id="gamelanOverlay" class="hidden relative z-10 bg-black/70 p-3 rounded-xl backdrop-blur-sm border border-amber-400 max-w-xs">
+                                <i class="fas fa-music text-3xl text-amber-400 mb-1 animate-pulse"></i>
+                                <p id="gamelanMediaStatus" class="text-xs font-bold text-amber-200">Video Gamelan sedia dimainkan</p>
+                            </div>
+                        </div>
+
+                        <!-- Audio HTML Player element for uploaded custom audio -->
+                        <p class="mt-2 mb-2 text-xs text-slate-200 text-left"><b>Sumber TikTok:</b> <a href="https://vt.tiktok.com/ZSg9SQV31/" target="_blank" rel="noopener noreferrer" class="underline font-bold text-amber-300 hover:text-white">Melayu Bersatu — buka video asal <i class="fas fa-external-link-alt"></i></a></p>
+
+                        <audio id="gamelanAudioPlayer" class="w-full mt-3 hidden" controls></audio>
+
+                        <!-- Control Buttons & File Loader -->
+                        <div class="mt-3 space-y-2">
+                            <button id="gamelanPlayBtn" onclick="playSoloInstrument('gamelan')" class="w-full bg-amber-500 hover:bg-amber-400 text-amber-950 font-extrabold py-2.5 px-4 rounded-xl border-2 border-amber-900 flex items-center justify-center space-x-2 shadow transition text-sm">
+                                <i class="fas fa-play text-lg"></i>
+                                <span id="gamelanBtnText">► DENGAR BUNYI GAMELAN</span>
+                            </button>
+                            <div class="bg-slate-800 p-3 rounded-xl border border-slate-700 text-left">
+                                <p class="text-[11px] text-amber-300 font-bold mb-1">🎬 Video disimpan dalam galeri</p>
+                                <p class="text-xs text-slate-200"><b>Sumber:</b> TikTok — Gamelan — Melayu Bersatu</p>
+                                <p class="text-[10px] text-slate-400 mt-1">Pautan sumber TikTok boleh diklik untuk melihat video asal.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Maklumat DSKP -->
+                    <div class="bg-white rounded-2xl p-5 border-2 border-amber-800 flex flex-col justify-between shadow">
+                        <div>
+                            <h3 class="text-lg font-bold text-amber-900 border-b-2 border-amber-200 pb-2 mb-3">
+                                📋 Maklumat Ensembel (DSKP 4.2.1)
+                            </h3>
+
+                            <ul class="space-y-3 text-sm">
+                                <li class="flex items-start space-x-2">
+                                    <span class="font-bold text-amber-800 min-w-[110px]">Nama Ensembel:</span>
+                                    <span class="font-semibold text-slate-800">Ensembel Gamelan Melayu</span>
+                                </li>
+                                <li class="flex items-start space-x-2">
+                                    <span class="font-bold text-amber-800 min-w-[110px]">Keluarga Alat:</span>
+                                    <span class="bg-amber-200 text-amber-900 font-bold px-2 py-0.5 rounded text-xs border border-amber-600">
+                                        Idiofon (Badan Bunyi Mandiri)
+                                    </span>
+                                </li>
+                                <li class="flex items-start space-x-2">
+                                    <span class="font-bold text-amber-800 min-w-[110px]">Alat Utama:</span>
+                                    <span class="font-semibold text-slate-800">Bonang, Saron, Gong, Gambang</span>
+                                </li>
+                                <li class="flex items-start space-x-2">
+                                    <span class="font-bold text-amber-800 min-w-[110px]">Ciri Bunyi:</span>
+                                    <span class="font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-300">
+                                        Nyaring, Berdenting, dan Merdu 🎶
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center pt-2">
+                    <button onclick="goToSlide(2)" class="btn-minion-blue px-5 py-2 text-sm flex items-center space-x-2">
+                        <i class="fas fa-home"></i>
+                        <span>Rumah</span>
+                    </button>
+
+                    <button onclick="goToSlide(4)" class="btn-minion-primary px-6 py-2.5 text-base flex items-center space-x-2">
+                        <span>JOM ULAS GAMELAN!</span>
+                        <i class="fas fa-play"></i>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= SLAID 4: AKTIVITI ULASAN TERPANDU - GAMELAN ================= -->
+        <section id="slide-4" class="w-full slide-content hidden">
+            <div class="minion-card bg-amber-100 p-6 border-4 border-amber-900">
+                
+                <div class="text-center mb-6">
+                    <span class="bg-amber-300 text-amber-950 font-extrabold px-4 py-1 rounded-full text-xs border border-amber-800">
+                        ✍️ AKTIVITI ULASAN TERPANDU
+                    </span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-amber-950 mt-1">
+                        AKTIVITI ULASAN: GAMELAN MELAYU
+                    </h2>
+                    <p class="text-sm text-amber-800 mt-1">Pilih kosa kata yang betul untuk melengkapkan ulasan warna ton bunyi di bawah!</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 border-4 border-amber-800 shadow-md mb-6 text-center">
+                    <p class="text-lg md:text-2xl font-bold leading-relaxed text-slate-800">
+                        "Ensembel Gamelan Melayu berada dalam keluarga 
+                        <span id="blank1" class="inline-block min-w-[140px] px-3 py-1 bg-yellow-200 border-b-4 border-amber-800 rounded text-amber-950 underline decoration-dashed">
+                            [ _______ ]
+                        </span>
+                        dan bunyinya bersifat 
+                        <span id="blank2" class="inline-block min-w-[140px] px-3 py-1 bg-yellow-200 border-b-4 border-amber-800 rounded text-amber-950 underline decoration-dashed">
+                            [ _______ ]
+                        </span>."
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <button onclick="checkGamelanAnswer('Idiofon')" class="shadow border-2 border-blue-900 bg-white hover:bg-yellow-200 font-bold p-4 rounded-xl text-amber-950 transition transform hover:scale-105">
+                        Kad A: Idiofon
+                    </button>
+                    <button onclick="checkGamelanAnswer('Membranofon')" class="shadow border-2 border-blue-900 bg-white hover:bg-yellow-200 font-bold p-4 rounded-xl text-amber-950 transition transform hover:scale-105">
+                        Kad B: Membranofon
+                    </button>
+                    <button onclick="checkGamelanAnswer('Nyaring')" class="shadow border-2 border-blue-900 bg-white hover:bg-yellow-200 font-bold p-4 rounded-xl text-amber-950 transition transform hover:scale-105">
+                        Kad C: Nyaring
+                    </button>
+                    <button onclick="checkGamelanAnswer('Mendayu')" class="shadow border-2 border-blue-900 bg-white hover:bg-yellow-200 font-bold p-4 rounded-xl text-amber-950 transition transform hover:scale-105">
+                        Kad D: Mendayu
+                    </button>
+                </div>
+
+                <div id="gamelanFeedback" class="bg-yellow-200 border-2 border-yellow-600 rounded-xl p-3 text-center text-sm font-bold text-amber-950 mb-6 min-h-[50px] flex items-center justify-center">
+                    Klik kad di atas untuk mengisi tempat kosong! 🍌
+                </div>
+
+                <div class="flex justify-between items-center">
+                    <button onclick="goToSlide(2)" class="btn-minion-blue px-5 py-2 text-sm flex items-center space-x-2">
+                        <i class="fas fa-home"></i>
+                        <span>Rumah</span>
+                    </button>
+
+                    <button onclick="goToSlide(5)" class="btn-minion-gold px-6 py-2.5 text-base flex items-center space-x-2">
+                        <span>TERUSKAN: KOMPANG</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= SLAID 5: KOMPANG ================= -->
+        <section id="slide-5" class="w-full slide-content hidden">
+            <div class="minion-card bg-red-50 p-6 border-4 border-red-900">
+                
+                <div class="flex items-center justify-between mb-4 border-b-2 border-red-200 pb-3">
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-red-900 flex items-center gap-2">
+                        <span>🥁</span> 2. ENSEMBEL KOMPANG
+                    </h2>
+                    <span class="bg-red-200 text-red-900 font-bold px-3 py-1 rounded-full text-xs border border-red-800">
+                        DSKP 4.2.1
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-slate-900 rounded-2xl p-4 text-white border-4 border-slate-800 shadow-inner flex flex-col justify-between">
+                        <div class="relative w-full h-48 bg-slate-950 rounded-xl overflow-hidden border-2 border-red-500/50 flex flex-col items-center justify-center p-2 text-center">
+                            <video id="kompangVideoPlayer" class="w-full h-full object-contain rounded-lg bg-black" controls preload="metadata" playsinline><source src="media/kompang.mp4" type="video/mp4">Pelayar anda tidak menyokong video HTML5.</video>
+                            <canvas id="kompangCanvas" class="hidden"></canvas>
+                            <div id="kompangOverlay" class="hidden relative z-10 bg-black/70 p-3 rounded-xl backdrop-blur-sm border border-red-400 max-w-xs">
+                                <i class="fas fa-drum text-3xl text-red-400 mb-1 animate-pulse"></i>
+                                <p id="kompangMediaStatus" class="text-xs font-bold text-red-200">Video Kompang sedia dimainkan</p>
+                            </div>
+                        </div>
+
+                        <p class="mt-2 mb-2 text-xs text-slate-200 text-left"><b>Sumber TikTok:</b> <a href="https://vt.tiktok.com/ZSg9SjHBg/" target="_blank" rel="noopener noreferrer" class="underline font-bold text-red-300 hover:text-white">Kompang Laksana Pusaka — buka video asal <i class="fas fa-external-link-alt"></i></a></p>
+
+                        <audio id="kompangAudioPlayer" class="w-full mt-3 hidden" controls></audio>
+
+                        <div class="mt-3 space-y-2">
+                            <button id="kompangPlayBtn" onclick="playSoloInstrument('kompang')" class="w-full bg-red-500 hover:bg-red-400 text-white font-extrabold py-2.5 px-4 rounded-xl border-2 border-red-950 flex items-center justify-center space-x-2 shadow transition text-sm">
+                                <i class="fas fa-play text-lg"></i>
+                                <span id="kompangBtnText">► DENGAR PALUAN KOMPANG</span>
+                            </button>
+
+                            <div class="bg-slate-800 p-3 rounded-xl border border-slate-700 text-left">
+                                <p class="text-[11px] text-red-300 font-bold mb-1">🎬 Video disimpan dalam galeri</p>
+                                <p class="text-xs text-slate-200"><b>Sumber:</b> TikTok — Kompang — Kompang Laksana Pusaka</p>
+                                <p class="text-[10px] text-slate-400 mt-1">Pautan sumber TikTok boleh diklik untuk melihat video asal.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Info DSKP Kompang -->
+                    <div class="bg-white rounded-2xl p-5 border-2 border-red-800 flex flex-col justify-between shadow">
+                        <div>
+                            <h3 class="text-lg font-bold text-red-900 border-b-2 border-red-200 pb-2 mb-3">📋 Maklumat Kompang</h3>
+                            <ul class="space-y-2.5 text-sm">
+                                <li><b>Nama Ensembel:</b> Ensembel Kompang</li>
+                                <li><b>Keluarga Alat:</b> <span class="bg-red-200 text-red-900 font-bold px-2 py-0.5 rounded text-xs">Membranofon (Membran/Kulit)</span></li>
+                                <li><b>Alat Utama:</b> Kompang (Gendang Bingkai)</li>
+                                <li><b>Ciri Bunyi:</b> <span class="text-red-700 font-bold">Lantang dan Bersemangat 🥁</span></li>
+                            </ul>
+                        </div>
+
+                        <div class="mt-4 bg-red-100 p-3 rounded-xl border border-red-300">
+                            <p class="text-xs font-bold text-red-950 mb-1">✍️ Ulasan Pantas Kompang:</p>
+                            <p class="text-xs text-slate-700 mb-2">Kompang menghasilkan bunyi lantang kerana mempunyai membran daripada _____.</p>
+                            <div class="flex space-x-2">
+                                <button onclick="showMinionToast('Tepat sekali! Membran kompang dibuat daripada kulit haiwan seperti kambing!', 'Syabas! 🎉', '🥁')" class="bg-white hover:bg-red-200 border border-red-800 text-xs px-3 py-1 rounded font-bold">A. Kulit Haiwan</button>
+                                <button onclick="showMinionToast('Kurang tepat. Percubaan yang baik, cuba lagi!', 'Ops! 😊', '💡')" class="bg-white hover:bg-red-200 border border-red-800 text-xs px-3 py-1 rounded font-bold">B. Kepingan Besi</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center">
+                    <button onclick="goToSlide(2)" class="btn-minion-blue px-5 py-2 text-sm flex items-center space-x-2">
+                        <i class="fas fa-home"></i>
+                        <span>Rumah</span>
+                    </button>
+
+                    <button onclick="goToSlide(6)" class="btn-minion-primary px-6 py-2.5 text-base flex items-center space-x-2">
+                        <span>JOM ULAS ANGKLUNG!</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= SLAID 6: ANGKLUNG ================= -->
+        <section id="slide-6" class="w-full slide-content hidden">
+            <div class="minion-card bg-emerald-50 p-6 border-4 border-emerald-900">
+                
+                <div class="flex items-center justify-between mb-4 border-b-2 border-emerald-200 pb-3">
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-emerald-900 flex items-center gap-2">
+                        <span>🎋</span> 3. ENSEMBEL ANGKLUNG
+                    </h2>
+                    <span class="bg-emerald-200 text-emerald-900 font-bold px-3 py-1 rounded-full text-xs border border-emerald-800">
+                        DSKP 4.2.1
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-slate-900 rounded-2xl p-4 text-white border-4 border-slate-800 shadow-inner flex flex-col justify-between">
+                        <div class="relative w-full h-48 bg-slate-950 rounded-xl overflow-hidden border-2 border-emerald-500/50 flex flex-col items-center justify-center p-2 text-center">
+                            <video id="angklungVideoPlayer" class="w-full h-full object-contain rounded-lg bg-black" controls preload="metadata" playsinline><source src="media/angklung.mp4" type="video/mp4">Pelayar anda tidak menyokong video HTML5.</video>
+                            <canvas id="angklungCanvas" class="hidden"></canvas>
+                            <div id="angklungOverlay" class="hidden relative z-10 bg-black/70 p-3 rounded-xl backdrop-blur-sm border border-emerald-400 max-w-xs">
+                                <i class="fas fa-bars-staggered text-3xl text-emerald-400 mb-1 animate-pulse"></i>
+                                <p id="angklungMediaStatus" class="text-xs font-bold text-emerald-200">Video Angklung sedia dimainkan</p>
+                            </div>
+                        </div>
+
+                        <p class="mt-2 mb-2 text-xs text-slate-200 text-left"><b>Sumber TikTok:</b> <a href="https://vt.tiktok.com/ZSg9SjrqD/" target="_blank" rel="noopener noreferrer" class="underline font-bold text-emerald-300 hover:text-white">Eris Nugraha — buka video asal <i class="fas fa-external-link-alt"></i></a></p>
+
+                        <audio id="angklungAudioPlayer" class="w-full mt-3 hidden" controls></audio>
+
+                        <div class="mt-3 space-y-2">
+                            <button id="angklungPlayBtn" onclick="playSoloInstrument('angklung')" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold py-2.5 px-4 rounded-xl border-2 border-emerald-950 flex items-center justify-center space-x-2 shadow transition text-sm">
+                                <i class="fas fa-play text-lg"></i>
+                                <span id="angklungBtnText">► DENGAR BULUH ANGKLUNG</span>
+                            </button>
+
+                            <div class="bg-slate-800 p-3 rounded-xl border border-slate-700 text-left">
+                                <p class="text-[11px] text-emerald-300 font-bold mb-1">🎬 Video disimpan dalam galeri</p>
+                                <p class="text-xs text-slate-200"><b>Sumber:</b> TikTok — Angklung — Eris Nugraha</p>
+                                <p class="text-[10px] text-slate-400 mt-1">Pautan sumber TikTok boleh diklik untuk melihat video asal.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-5 border-2 border-emerald-800 flex flex-col justify-between shadow">
+                        <div>
+                            <h3 class="text-lg font-bold text-emerald-900 border-b-2 border-emerald-200 pb-2 mb-3">📋 Maklumat Angklung</h3>
+                            <ul class="space-y-2.5 text-sm">
+                                <li><b>Nama Ensembel:</b> Ensembel Angklung</li>
+                                <li><b>Keluarga Alat:</b> <span class="bg-emerald-200 text-emerald-900 font-bold px-2 py-0.5 rounded text-xs">Idiofon (Bambu/Buluh)</span></li>
+                                <li><b>Alat Utama:</b> Angklung (Pelbagai saiz/kelantangan)</li>
+                                <li><b>Ciri Bunyi:</b> <span class="text-emerald-700 font-bold">Gemetar (Getaran buluh) dan Ceria 🎋</span></li>
+                            </ul>
+                        </div>
+
+                        <div class="mt-4 bg-emerald-100 p-3 rounded-xl border border-emerald-300">
+                            <p class="text-xs font-bold text-emerald-950 mb-1">✍️ Ulasan Pantas Angklung:</p>
+                            <p class="text-xs text-slate-700 mb-2">Bunyi Angklung terhasil dengan cara _____ buluh tersebut.</p>
+                            <div class="flex space-x-2">
+                                <button onclick="showMinionToast('Syabas! Angklung digoyangkan untuk mengeluarkan getaran bunyi merdu!', 'Hebat! 🎉', '🎋')" class="bg-white hover:bg-emerald-200 border border-emerald-800 text-xs px-3 py-1 rounded font-bold">A. Mengoyangkan</button>
+                                <button onclick="showMinionToast('Kurang tepat. Cuba ingat kembali getaran buluh angklung!', 'Ops! 😊', '💡')" class="bg-white hover:bg-emerald-200 border border-emerald-800 text-xs px-3 py-1 rounded font-bold">B. Meniup</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center">
+                    <button onclick="goToSlide(2)" class="btn-minion-blue px-5 py-2 text-sm flex items-center space-x-2">
+                        <i class="fas fa-home"></i>
+                        <span>Rumah</span>
+                    </button>
+
+                    <button onclick="goToSlide(7)" class="btn-minion-primary px-6 py-2.5 text-base flex items-center space-x-2">
+                        <span>JOM ULAS SERUNAI!</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= SLAID 7: SERUNAI ================= -->
+        <section id="slide-7" class="w-full slide-content hidden">
+            <div class="minion-card bg-purple-50 p-6 border-4 border-purple-900">
+                
+                <div class="flex items-center justify-between mb-4 border-b-2 border-purple-200 pb-3">
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-purple-900 flex items-center gap-2">
+                        <span>🎺</span> 4. ENSEMBEL SERUNAI / GENDANG SILAT
+                    </h2>
+                    <span class="bg-purple-200 text-purple-900 font-bold px-3 py-1 rounded-full text-xs border border-purple-800">
+                        DSKP 4.2.1
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-slate-900 rounded-2xl p-4 text-white border-4 border-slate-800 shadow-inner flex flex-col justify-between">
+                        <div class="relative w-full h-48 bg-slate-950 rounded-xl overflow-hidden border-2 border-purple-500/50 flex flex-col items-center justify-center p-2 text-center">
+                            <video id="serunaiVideoPlayer" class="w-full h-full object-contain rounded-lg bg-black" controls preload="metadata" playsinline><source src="media/serunai.mp4" type="video/mp4">Pelayar anda tidak menyokong video HTML5.</video>
+                            <canvas id="serunaiCanvas" class="hidden"></canvas>
+                            <div id="serunaiOverlay" class="hidden relative z-10 bg-black/70 p-3 rounded-xl backdrop-blur-sm border border-purple-400 max-w-xs">
+                                <i class="fas fa-wind text-3xl text-purple-400 mb-1 animate-pulse"></i>
+                                <p id="serunaiMediaStatus" class="text-xs font-bold text-purple-200">Video Serunai sedia dimainkan</p>
+                            </div>
+                        </div>
+
+                        <p class="mt-2 mb-2 text-xs text-slate-200 text-left"><b>Sumber TikTok:</b> <a href="https://vt.tiktok.com/ZSg9SAXjr/" target="_blank" rel="noopener noreferrer" class="underline font-bold text-purple-300 hover:text-white">BelalangOfficial — buka video asal <i class="fas fa-external-link-alt"></i></a></p>
+
+                        <audio id="serunaiAudioPlayer" class="w-full mt-3 hidden" controls></audio>
+
+                        <div class="mt-3 space-y-2">
+                            <button id="serunaiPlayBtn" onclick="playSoloInstrument('serunai')" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-extrabold py-2.5 px-4 rounded-xl border-2 border-purple-950 flex items-center justify-center space-x-2 shadow transition text-sm">
+                                <i class="fas fa-play text-lg"></i>
+                                <span id="serunaiBtnText">► DENGAR TIUPAN SERUNAI</span>
+                            </button>
+
+                            <div class="bg-slate-800 p-3 rounded-xl border border-slate-700 text-left">
+                                <p class="text-[11px] text-purple-300 font-bold mb-1">🎬 Video disimpan dalam galeri</p>
+                                <p class="text-xs text-slate-200"><b>Sumber:</b> TikTok — Serunai — BelalangOfficial</p>
+                                <p class="text-[10px] text-slate-400 mt-1">Pautan sumber TikTok boleh diklik untuk melihat video asal.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-5 border-2 border-purple-800 flex flex-col justify-between shadow">
+                        <div>
+                            <h3 class="text-lg font-bold text-purple-900 border-b-2 border-purple-200 pb-2 mb-3">📋 Maklumat Serunai</h3>
+                            <ul class="space-y-2.5 text-sm">
+                                <li><b>Nama Ensembel:</b> Ensembel Serunai / Gendang Silat</li>
+                                <li><b>Keluarga Alat:</b> <span class="bg-purple-200 text-purple-900 font-bold px-2 py-0.5 rounded text-xs">Aerofon (Alat Tiupan)</span></li>
+                                <li><b>Alat Utama:</b> Serunai, Gendang Ibu, Gendang Anak, Gong</li>
+                                <li><b>Ciri Bunyi:</b> <span class="text-purple-700 font-bold">Bingit, Nyaring, dan Mendayu 🎺</span></li>
+                            </ul>
+                        </div>
+
+                        <div class="mt-4 bg-purple-100 p-3 rounded-xl border border-purple-300">
+                            <p class="text-xs font-bold text-purple-950 mb-1">💡 Fakta Muzik:</p>
+                            <p class="text-xs text-slate-700">Serunai dikategorikan sebagai Aerofon kerana bunyinya terhasil daripada tiupan udara!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center">
+                    <button onclick="goToSlide(2)" class="btn-minion-blue px-5 py-2 text-sm flex items-center space-x-2">
+                        <i class="fas fa-home"></i>
+                        <span>Rumah</span>
+                    </button>
+
+                    <button onclick="goToSlide(8)" class="btn-minion-gold px-6 py-2.5 text-base flex items-center space-x-2">
+                        <span>KE KUIZ PENILAIAN ▶️</span>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= SLAID 8: KUIZ PENILAIAN RINGKAS ================= -->
+        <section id="slide-8" class="w-full slide-content hidden">
+            <div class="minion-card bg-yellow-100 p-6 border-4 border-blue-900 relative">
+                
+                <div class="flex items-center justify-between flex-wrap gap-2 mb-4">
+                    <span class="bg-blue-600 text-white font-extrabold px-4 py-1 rounded-full text-xs border border-blue-950">
+                        🧩 KUIZ PENILAIAN PDP (DSKP 4.2.1)
+                    </span>
+                    
+                    <!-- Consecutive Correct Streak Badge -->
+                    <div id="streakContainer" class="hidden bg-gradient-to-r from-orange-500 to-red-500 text-white font-black px-4 py-1 rounded-full border-2 border-red-900 text-xs shadow-md flex items-center gap-1.5 animate-bounce">
+                        <span>🔥 STREAK:</span>
+                        <span id="streakValue">0</span>
+                        <span>BERTURUT-TURUT!</span>
+                    </div>
+                </div>
+
+                <div class="text-center mb-4">
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-blue-950">
+                        UJI MINAT & KEFAHAMAN MUZIK WARISAN
+                    </h2>
+                </div>
+
+                <div class="w-full bg-slate-200 h-4 rounded-full border-2 border-blue-900 mb-6 overflow-hidden">
+                    <div id="quizProgressBar" class="bg-yellow-400 h-full w-1/3 transition-all duration-300"></div>
+                </div>
+
+                <!-- Quiz Card & Interactive Mascot Reaction Area -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+                    
+                    <!-- Animated Cikgu Raudhah Reaction Box inside Quiz -->
+                    <div class="md:col-span-1 bg-amber-200 border-4 border-amber-800 rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow">
+                        <div id="quizMascotGraphic" class="w-20 h-20 bg-pink-500 rounded-full border-4 border-blue-900 flex items-center justify-center text-4xl shadow-inner mb-2 transition-transform">
+                            👩‍🏫
+                        </div>
+                        <span id="quizMascotLabel" class="bg-white text-blue-900 font-extrabold text-xs px-3 py-1 rounded-full border border-blue-900 shadow">
+                            Cikgu Raudhah
+                        </span>
+                        <p id="quizMascotStatus" class="text-xs font-bold text-amber-950 mt-2 italic">
+                            "Pilih jawapan yang paling tepat ya! ✨"
+                        </p>
+                    </div>
+
+                    <!-- Question Container -->
+                    <div class="md:col-span-3 bg-white rounded-2xl p-6 border-4 border-blue-900 shadow-md flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-3 text-xs font-bold text-blue-900">
+                                <span id="questionNumText">Soalan 1 daripada 3</span>
+                                <span id="scoreText" class="bg-yellow-300 px-3 py-1 rounded-full border border-blue-900">Markah: 0</span>
+                            </div>
+
+                            <h3 id="quizQuestionText" class="text-lg md:text-xl font-bold text-slate-800 mb-6">
+                                "Manakah antara berikut merupakan KELUARGA ALAT MUZIK bagi SERUNAI?"
+                            </h3>
+
+                            <div id="quizOptionsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            </div>
+                        </div>
+
+                        <!-- Feedback Banner -->
+                        <div id="quizFeedback" class="mt-4 bg-blue-100 border-2 border-blue-500 rounded-xl p-3 text-center text-sm font-bold text-blue-950 hidden">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center">
+                    <button onclick="goToSlide(2)" class="btn-minion-blue px-5 py-2 text-sm flex items-center space-x-2">
+                        <i class="fas fa-home"></i>
+                        <span>Rumah</span>
+                    </button>
+
+                    <button id="nextQuizBtn" onclick="nextQuizQuestion()" class="btn-minion-primary px-6 py-2.5 text-base flex items-center space-x-2 opacity-50 cursor-not-allowed" disabled>
+                        <span>SOALAN SETERUSNYA</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= SLAID 9: PENUTUP ================= -->
+        <section id="slide-9" class="w-full slide-content hidden">
+            <div class="minion-card bg-yellow-300 p-6 md:p-8 border-4 border-blue-900 text-center relative overflow-hidden">
+                
+                <div class="bg-pink-600 text-white py-1.5 px-6 rounded-full inline-block font-extrabold border-2 border-blue-950 mb-3 text-sm">
+                    📜 PENUTUP & HAK CIPTA ETIKA
+                </div>
+
+                <h2 class="text-3xl md:text-4xl font-black text-blue-900 mb-2">
+                    TAHNIAH! ANDA DETEKTIF MUZIK WARISAN 🎉
+                </h2>
+                <p class="text-blue-950 font-medium text-base mb-6">Anda telah berjaya meneroka 4 ensembel muzik tradisional Melayu Tahun 4!</p>
+
+                <!-- Victory Card with Trophy & Stars -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 text-left">
+                    <div id="victoryCard" class="bg-white p-5 rounded-2xl border-4 border-blue-900 shadow flex flex-col items-center text-center relative overflow-hidden">
+                        <div class="text-6xl mb-2 animate-bounce">🏆</div>
+                        <h3 class="font-extrabold text-xl text-pink-700 mb-1">PENCAPAIAN CEMERLANG!</h3>
+                        <p id="victorySpeechText" class="text-xs md:text-sm text-slate-700 leading-relaxed mb-3 font-semibold">
+                            "Bello dan Syabas! Anda sungguh hebat mengenali Idiofon, Membranofon, dan Aerofon! Kekalkan semangat tinggi memelihara seni muzik warisan kita!"
+                        </p>
+
+                        <div id="finalScoreBadge" class="bg-yellow-200 text-amber-900 font-extrabold px-5 py-2.5 rounded-xl border-2 border-amber-800 text-base shadow-inner">
+                            Pengurusan Markah Kuiz: <span id="finalScoreVal" class="text-pink-700 text-lg">100%</span>
+                        </div>
+
+                        <!-- Star Rating Visual -->
+                        <div id="starRatingBox" class="flex gap-2 text-2xl mt-3 text-yellow-400 drop-shadow">
+                            <span>⭐</span><span>⭐</span><span>⭐</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-900 text-white p-5 rounded-2xl border-4 border-blue-950 shadow flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-extrabold text-yellow-300 text-base mb-2 border-b border-blue-700 pb-1 flex items-center gap-2">
+                                <i class="fas fa-shield-alt"></i> Penghargaan & Hak Cipta
+                            </h3>
+                            <ul class="text-[11px] space-y-1.5 text-blue-100">
+                                <li>• <b>Video Ensembel:</b> Fail MP4 disimpan bersama laman web dalam folder media/.</li>
+                                <li>• <b>Sumber video:</b> TikTok — Melayu Bersatu, Kompang Laksana Pusaka, Eris Nugraha dan BelalangOfficial.</li>
+                                <li>• <b>Rujukan Kurikulum:</b> DSKP Pendidikan Muzik Tahun 4 (KPM).</li>
+                                <li>• <b>Watak Guru:</b> Cikgu Raudhah Fan Art Style / Ilustrasi Pendidikan.</li>
+                            </ul>
+                        </div>
+                        <p class="text-[10px] text-blue-300 mt-3 italic">
+                            *Semua sumber media digunakan bagi tujuan pendidikan bukan komersial (Educational Use).
+                        </p>
+                    </div>
+                </div>
+
+                <button onclick="resetAppAndReplay()" class="btn-minion-gold text-lg md:text-xl px-10 py-3.5 inline-flex items-center space-x-3 cursor-pointer">
+                    <i class="fas fa-redo"></i>
+                    <span>ULANG SEMULA KEMBARA</span>
+                </button>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-blue-900 text-blue-200 text-center text-xs py-3 border-t-4 border-blue-950">
+        <p>Pendidikan Muzik Tahun 4 • Modul Interaktif Ensembel Muzik Tradisional Melayu bersama Cikgu Raudhah</p>
+    </footer>
+
+    <script>
+        let audioCtx = null;
+        let currentSlide = 1;
+        let quizScore = 0;
+        let currentQuizIdx = 0;
+
+        // Streak tracking
+        let currentStreak = 0;
+        let maxStreak = 0;
+
+        // Randomized Encouraging Feedback Messages
+        const CORRECT_MSGS = [
+            "YAYYY! BETUL!! PANDAINYA! 🎉",
+            "TAHNIAH! JAWAPAN ANDA TEPAT! 🌟",
+            "WOWWW! HEBATNYA AWAK! 🥳",
+            "YEAY! AWAK MEMANG BIJAK! ⭐️"
+        ];
+
+        const WRONG_MSGS = [
+            "ALAMAK! TAK TEPAT LAGI! 🥺",
+            "OHH NOOO! CUBA LAGI YAA! 😭",
+            "HAMPIR BETUL! JANGAN PUTUS ASA! 💪",
+            "OPS! JOM CUBA SEKALI LAGI! 💗"
+        ];
+
+        // Custom Media File Storage per instrument
+        // Video menggunakan laluan relatif dalam folder media/.
+        // Pastikan folder media dimuat naik bersama fail HTML apabila diterbitkan.
+        const customMedia = {
+            gamelan: { type: 'video', url: 'media/gamelan.mp4' },
+            kompang: { type: 'video', url: 'media/kompang.mp4' },
+            angklung: { type: 'video', url: 'media/angklung.mp4' },
+            serunai: { type: 'video', url: 'media/serunai.mp4' }
+        };
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        // Play Cheerful Victory Sound (Ascending major arpeggio jingle)
+        function playSuccessSound() {
+            initAudio();
+            if (!audioCtx) return;
+
+            const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+            notes.forEach((freq, idx) => {
+                setTimeout(() => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                    gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.35);
+                }, idx * 100);
+            });
+        }
+
+        // Play Gentle Playful Wrong Sound (Descending soft synth boing)
+        function playWrongSound() {
+            initAudio();
+            if (!audioCtx) return;
+
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(300, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(140, audioCtx.currentTime + 0.3);
+            gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.3);
+        }
+
+        // Play Streak Fanfare Sound
+        function playStreakSound() {
+            initAudio();
+            if (!audioCtx) return;
+
+            const notes = [587.33, 659.25, 783.99, 880.00, 1174.66];
+            notes.forEach((freq, idx) => {
+                setTimeout(() => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                    gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.25);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.25);
+                }, idx * 80);
+            });
+        }
+
+        // Confetti & Sparkling Stars Animation Engine
+        let confettiParticles = [];
+        let isConfettiRunning = false;
+
+        function triggerConfetti() {
+            const canvas = document.getElementById('confettiCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const colors = ['#FACC15', '#EC4899', '#3B82F6', '#10B981', '#A855F7', '#F97316'];
+            
+            for (let i = 0; i < 90; i++) {
+                confettiParticles.push({
+                    x: Math.random() * canvas.width,
+                    y: -10 - Math.random() * 20,
+                    vx: (Math.random() - 0.5) * 6,
+                    vy: Math.random() * 5 + 3,
+                    size: Math.random() * 8 + 6,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    rotation: Math.random() * 360,
+                    vRot: (Math.random() - 0.5) * 10,
+                    shape: Math.random() > 0.3 ? 'rect' : 'star'
+                });
+            }
+
+            if (!isConfettiRunning) {
+                isConfettiRunning = true;
+                animateConfetti(ctx, canvas);
+            }
+        }
+
+        function animateConfetti(ctx, canvas) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            for (let i = confettiParticles.length - 1; i >= 0; i--) {
+                const p = confettiParticles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.rotation += p.vRot;
+
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate((p.rotation * Math.PI) / 180);
+                ctx.fillStyle = p.color;
+
+                if (p.shape === 'rect') {
+                    ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+                } else {
+                    ctx.beginPath();
+                    ctx.arc(0, 0, p.size / 2, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                ctx.restore();
+
+                if (p.y > canvas.height) {
+                    confettiParticles.splice(i, 1);
+                }
+            }
+
+            if (confettiParticles.length > 0) {
+                requestAnimationFrame(() => animateConfetti(ctx, canvas));
+            } else {
+                isConfettiRunning = false;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        }
+
+        function triggerMascotJoy(elementId) {
+            initAudio();
+            playSuccessSound();
+            triggerConfetti();
+            const elem = document.getElementById(elementId);
+            if (elem) {
+                elem.classList.remove('anim-happy', 'anim-sad');
+                void elem.offsetWidth; // force reflow
+                elem.classList.add('anim-happy');
+            }
+        }
+
+        // Custom Modal Toast Notification with Mascot Reaction
+        function showMinionToast(msg, title = "Maklumat", icon = "👩‍🏫", isSuccess = true, onRetry = null) {
+            const modal = document.getElementById('customModal');
+            const box = document.getElementById('modalBox');
+            const mascot = document.getElementById('modalMascotAvatar');
+            const actions = document.getElementById('modalActions');
+
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalMessage').innerText = msg;
+            mascot.innerText = icon;
+
+            box.classList.remove('anim-happy', 'anim-sad');
+            void box.offsetWidth;
+
+            if (isSuccess) {
+                playSuccessSound();
+                triggerConfetti();
+                box.classList.add('anim-happy');
+            } else {
+                playWrongSound();
+                box.classList.add('anim-sad');
+            }
+
+            // Custom Buttons layout (Retry vs OK)
+            actions.innerHTML = '';
+            if (onRetry) {
+                const retryBtn = document.createElement('button');
+                retryBtn.className = "btn-minion-pink px-4 py-2 text-xs font-bold w-1/2 flex items-center justify-center gap-1";
+                retryBtn.innerHTML = "<span>CUBA LAGI 🔄</span>";
+                retryBtn.onclick = () => {
+                    closeModal();
+                    onRetry();
+                };
+
+                const closeBtn = document.createElement('button');
+                closeBtn.className = "btn-minion-gold px-4 py-2 text-xs font-bold w-1/2";
+                closeBtn.innerText = "FAHAM!";
+                closeBtn.onclick = closeModal;
+
+                actions.appendChild(retryBtn);
+                actions.appendChild(closeBtn);
+            } else {
+                const closeBtn = document.createElement('button');
+                closeBtn.className = "btn-minion-gold px-6 py-2.5 text-sm w-full font-extrabold";
+                closeBtn.innerText = "TERUSKAN!";
+                closeBtn.onclick = closeModal;
+                actions.appendChild(closeBtn);
+            }
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('customModal').classList.add('hidden');
+        }
+
+        // Handle user file upload for Real Audio & Video files (MP3/MP4)
+        function handleMediaUpload(event, key) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const fileURL = URL.createObjectURL(file);
+            const isVideo = file.type.startsWith('video');
+
+            customMedia[key].type = isVideo ? 'video' : 'audio';
+            customMedia[key].url = fileURL;
+
+            const audioElem = document.getElementById(`${key}AudioPlayer`);
+            const videoElem = document.getElementById(`${key}VideoPlayer`);
+            const overlay = document.getElementById(`${key}Overlay`);
+            const statusText = document.getElementById(`${key}MediaStatus`);
+            const btnText = document.getElementById(`${key}BtnText`);
+
+            if (isVideo) {
+                videoElem.src = fileURL;
+                videoElem.classList.remove('hidden');
+                audioElem.classList.add('hidden');
+                overlay.classList.add('hidden');
+                statusText.innerText = `Video Sebenar Dimuat Naik: ${file.name}`;
+                btnText.innerText = `► MAIN VIDEO ${key.toUpperCase()}`;
+            } else {
+                audioElem.src = fileURL;
+                audioElem.classList.remove('hidden');
+                videoElem.classList.add('hidden');
+                overlay.classList.remove('hidden');
+                statusText.innerText = `Audio Sebenar Dimuat Naik: ${file.name}`;
+                btnText.innerText = `► MAIN AUDIO ${key.toUpperCase()}`;
+            }
+
+            showMinionToast(`Fail ${file.name} telah berjaya dimuat naik untuk ${key.toUpperCase()}!`, "Fail Media Berjaya!", "🎵", true);
+        }
+
+        // Play Sound
+        function playSoloInstrument(type) {
+            initAudio();
+            const media = customMedia[type];
+
+            if (media.url) {
+                if (media.type === 'video') {
+                    const videoElem = document.getElementById(`${type}VideoPlayer`);
+                    videoElem.play();
+                } else {
+                    const audioElem = document.getElementById(`${type}AudioPlayer`);
+                    audioElem.play();
+                }
+                triggerVisualizer(`${type}Canvas`, '#3B82F6');
+                return;
+            }
+
+            // Synth Fallbacks
+            if (type === 'gamelan') {
+                const freqs = [523.25, 659.25, 783.99, 1046.50];
+                freqs.forEach((f, i) => {
+                    setTimeout(() => {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(f, audioCtx.currentTime);
+                        gain.gain.setValueAtTime(0.5, audioCtx.currentTime);
+                        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.5);
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        osc.start();
+                        osc.stop(audioCtx.currentTime + 1.5);
+                    }, i * 250);
+                });
+                triggerVisualizer('gamelanCanvas', '#F59E0B');
+            } else if (type === 'kompang') {
+                const beats = [0, 200, 400, 700];
+                beats.forEach((t) => {
+                    setTimeout(() => {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+                        osc.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.2);
+                        gain.gain.setValueAtTime(0.8, audioCtx.currentTime);
+                        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2);
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        osc.start();
+                        osc.stop(audioCtx.currentTime + 0.2);
+                    }, t);
+                });
+                triggerVisualizer('kompangCanvas', '#EF4444');
+            } else if (type === 'angklung') {
+                const baseF = 440;
+                for (let i = 0; i < 12; i++) {
+                    setTimeout(() => {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        osc.type = 'triangle';
+                        osc.frequency.setValueAtTime(baseF + (i % 2 === 0 ? 0 : 15), audioCtx.currentTime);
+                        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        osc.start();
+                        osc.stop(audioCtx.currentTime + 0.15);
+                    }, i * 80);
+                }
+                triggerVisualizer('angklungCanvas', '#10B981');
+            } else if (type === 'serunai') {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(350, audioCtx.currentTime);
+                osc.frequency.linearRampToValueAtTime(580, audioCtx.currentTime + 0.4);
+                osc.frequency.linearRampToValueAtTime(440, audioCtx.currentTime + 0.9);
+                gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.2);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 1.2);
+                triggerVisualizer('serunaiCanvas', '#A855F7');
+            }
+        }
+
+        function triggerVisualizer(canvasId, colorHex) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+
+            let frame = 0;
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = colorHex;
+                const bars = 12;
+                const barWidth = canvas.width / bars;
+
+                for (let i = 0; i < bars; i++) {
+                    const h = Math.sin(frame * 0.2 + i) * (canvas.height * 0.4) + (canvas.height * 0.4);
+                    ctx.fillRect(i * barWidth + 4, canvas.height - h, barWidth - 8, h);
+                }
+                frame++;
+                if (frame < 40) requestAnimationFrame(animate);
+                else ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+            animate();
+        }
+
+        function goToSlide(slideNum) {
+            initAudio();
+
+            // Hentikan main balik apabila pengguna bertukar slaid.
+            document.querySelectorAll('video').forEach(video => video.pause());
+
+            document.querySelectorAll('.slide-content').forEach(s => s.classList.add('hidden'));
+            document.getElementById(`slide-${slideNum}`).classList.remove('hidden');
+            document.getElementById('currentSlideNum').innerText = slideNum;
+            currentSlide = slideNum;
+
+            if (slideNum === 9) {
+                triggerVictoryScreen();
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Slide 4: Gamelan Activity Logic
+        function checkGamelanAnswer(word) {
+            initAudio();
+            const fb = document.getElementById('gamelanFeedback');
+
+            if (word === 'Idiofon') {
+                document.getElementById('blank1').innerText = 'Idiofon';
+                document.getElementById('blank1').className = 'inline-block px-3 py-1 bg-green-300 border-2 border-green-800 rounded font-bold text-green-950';
+                fb.innerText = getRandomMsg(CORRECT_MSGS);
+                showMinionToast(fb.innerText, "Syabas!", "🥳", true);
+            } else if (word === 'Nyaring') {
+                document.getElementById('blank2').innerText = 'Nyaring';
+                document.getElementById('blank2').className = 'inline-block px-3 py-1 bg-green-300 border-2 border-green-800 rounded font-bold text-green-950';
+                fb.innerText = getRandomMsg(CORRECT_MSGS);
+                showMinionToast(fb.innerText, "Tepat Sekali!", "🌟", true);
+            } else {
+                const msg = getRandomMsg(WRONG_MSGS);
+                fb.innerText = msg;
+                showMinionToast(`${msg} Kosa kata "${word}" kurang sesuai untuk Gamelan.`, "Cuba Lagi!", "🥺", false);
+            }
+        }
+
+        // Quiz Engine with Mascot Dynamic Reactions & Streak System
+        const quizQuestions = [
+            {
+                q: "1. Manakah antara berikut merupakan KELUARGA ALAT MUZIK bagi SERUNAI?",
+                options: ["Aerofon", "Membranofon", "Idiofon", "Kordofon"],
+                correct: "Aerofon",
+                hint: "Petunjuk: Serunai dimainkan secara ditiup udara! 🎺"
+            },
+            {
+                q: "2. Alat muzik KOMPANG menghasilkan bunyi lantang daripada kategori?",
+                options: ["Membranofon (Membran Kulit)", "Aerofon (Tiupan Air)", "Idiofon (Kepingan Kayu)", "Kordofon (Tali Violin)"],
+                correct: "Membranofon (Membran Kulit)",
+                hint: "Petunjuk: Kompang mempunyai permukaan kulit haiwan yang dipalu! 🥁"
+            },
+            {
+                q: "3. Apakah ciri warna ton bunyi bagi Ensembel Gamelan Melayu?",
+                options: ["Nyaring, Berdenting, dan Merdu", "Bisu dan Senyap", "Gemetar sahaja", "Tiupan Sahaja"],
+                correct: "Nyaring, Berdenting, dan Merdu",
+                hint: "Petunjuk: Bonang dan Saron dibuat daripada logam berdenting! 🔔"
+            }
+        ];
+
+        function getRandomMsg(array) {
+            return array[Math.floor(Math.random() * array.length)];
+        }
+
+        function renderQuizQuestion() {
+            const item = quizQuestions[currentQuizIdx];
+            document.getElementById('questionNumText').innerText = `Soalan ${currentQuizIdx + 1} daripada ${quizQuestions.length}`;
+            document.getElementById('quizQuestionText').innerText = item.q;
+            
+            const container = document.getElementById('quizOptionsContainer');
+            container.innerHTML = '';
+
+            item.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = "quiz-opt-btn p-4 rounded-xl border-2 border-blue-900 bg-sky-50 hover:bg-yellow-200 text-blue-950 font-bold text-left transition transform hover:scale-102 shadow text-sm md:text-base";
+                btn.innerText = opt;
+                btn.onclick = () => handleQuizAnswer(opt, btn);
+                container.appendChild(btn);
+            });
+
+            document.getElementById('quizProgressBar').style.width = `${((currentQuizIdx + 1) / quizQuestions.length) * 100}%`;
+            document.getElementById('nextQuizBtn').disabled = true;
+            document.getElementById('nextQuizBtn').classList.add('opacity-50', 'cursor-not-allowed');
+            document.getElementById('quizFeedback').classList.add('hidden');
+
+            // Reset Mascot State in Quiz
+            const mascotGraphic = document.getElementById('quizMascotGraphic');
+            mascotGraphic.innerText = '👩‍🏫';
+            mascotGraphic.className = "w-20 h-20 bg-pink-500 rounded-full border-4 border-blue-900 flex items-center justify-center text-4xl shadow-inner mb-2 transition-transform";
+            document.getElementById('quizMascotStatus').innerText = '"Pilih jawapan yang paling tepat ya! ✨"';
+        }
+
+        function handleQuizAnswer(ans, btnElem) {
+            initAudio();
+            const currentItem = quizQuestions[currentQuizIdx];
+            const fb = document.getElementById('quizFeedback');
+            const mascotGraphic = document.getElementById('quizMascotGraphic');
+            const mascotStatus = document.getElementById('quizMascotStatus');
+            fb.classList.remove('hidden');
+
+            // Disable clicking all options temporarily
+            document.querySelectorAll('.quiz-opt-btn').forEach(b => b.disabled = true);
+
+            if (ans === currentItem.correct) {
+                quizScore += 10;
+                currentStreak++;
+                if (currentStreak > maxStreak) maxStreak = currentStreak;
+
+                playSuccessSound();
+                triggerConfetti();
+
+                // Mascot Reaction
+                mascotGraphic.innerText = '🥳';
+                mascotGraphic.className = "w-20 h-20 bg-green-400 rounded-full border-4 border-blue-900 flex items-center justify-center text-4xl shadow-inner mb-2 transition-transform anim-happy";
+                
+                const praise = getRandomMsg(CORRECT_MSGS);
+                mascotStatus.innerText = `"${praise}"`;
+
+                btnElem.classList.remove('bg-sky-50', 'hover:bg-yellow-200');
+                btnElem.classList.add('bg-green-300', 'border-green-800', 'text-green-950');
+
+                fb.className = "bg-green-100 border-2 border-green-600 rounded-xl p-3 text-center text-sm font-bold text-green-950 mb-4";
+                
+                // Streak check banner
+                if (currentStreak >= 2) {
+                    playStreakSound();
+                    document.getElementById('streakContainer').classList.remove('hidden');
+                    document.getElementById('streakValue').innerText = currentStreak;
+                    fb.innerText = `${praise} 🔥 STREAK! ${currentStreak} JAWAPAN BETUL BERTURUT-TURUT!`;
+                } else {
+                    fb.innerText = `${praise} Jawapan anda tepat!`;
+                }
+
+                document.getElementById('nextQuizBtn').disabled = false;
+                document.getElementById('nextQuizBtn').classList.remove('opacity-50', 'cursor-not-allowed');
+
+            } else {
+                // WRONG Answer Handling with Soft Encouragement & Retry option
+                currentStreak = 0;
+                document.getElementById('streakContainer').classList.add('hidden');
+
+                playWrongSound();
+
+                // Mascot Reaction
+                mascotGraphic.innerText = '🥺';
+                mascotGraphic.className = "w-20 h-20 bg-red-300 rounded-full border-4 border-blue-900 flex items-center justify-center text-4xl shadow-inner mb-2 transition-transform anim-sad";
+
+                const encouragingMsg = getRandomMsg(WRONG_MSGS);
+                mascotStatus.innerText = `"${encouragingMsg}"`;
+
+                btnElem.classList.remove('bg-sky-50');
+                btnElem.classList.add('bg-red-200', 'border-red-800', 'text-red-950');
+
+                fb.className = "bg-red-100 border-2 border-red-600 rounded-xl p-3 text-center text-sm font-bold text-red-950 mb-4";
+                fb.innerHTML = `<div>${encouragingMsg}</div><div class="text-xs font-semibold mt-1 text-slate-700">${currentItem.hint}</div>`;
+
+                // Show retry modal popup with hint
+                showMinionToast(
+                    `${encouragingMsg}\n\n${currentItem.hint}`,
+                    "Jangan Putus Asa! 💪",
+                    "🥺",
+                    false,
+                    () => {
+                        // Allow student to retry answering
+                        document.querySelectorAll('.quiz-opt-btn').forEach(b => {
+                            b.disabled = false;
+                            b.classList.remove('bg-red-200', 'border-red-800');
+                        });
+                        mascotGraphic.innerText = '👩‍🏫';
+                        mascotGraphic.className = "w-20 h-20 bg-pink-500 rounded-full border-4 border-blue-900 flex items-center justify-center text-4xl shadow-inner mb-2";
+                        mascotStatus.innerText = '"Jom cuba sekali lagi! Cikgu tahu anda boleh!"';
+                    }
+                );
+
+                // Still allow proceeding to next question if desired
+                document.getElementById('nextQuizBtn').disabled = false;
+                document.getElementById('nextQuizBtn').classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+
+            document.getElementById('scoreText').innerText = `Markah: ${quizScore}`;
+        }
+
+        function nextQuizQuestion() {
+            if (currentQuizIdx < quizQuestions.length - 1) {
+                currentQuizIdx++;
+                renderQuizQuestion();
+            } else {
+                document.getElementById('finalScoreVal').innerText = `${Math.round((quizScore / 30) * 100)}% (${quizScore} / 30 Markah)`;
+                goToSlide(9);
+            }
+        }
+
+        // Slide 9 Victory Celebration Screen
+        function triggerVictoryScreen() {
+            playSuccessSound();
+            triggerConfetti();
+
+            const pct = Math.round((quizScore / 30) * 100);
+            const stars = document.getElementById('starRatingBox');
+            const speech = document.getElementById('victorySpeechText');
+
+            if (pct >= 80) {
+                stars.innerHTML = "⭐ ⭐ ⭐";
+                speech.innerHTML = `"Bello dan SYABAS CEMERLANG! 🏆 Anda meraih ${pct}% dan merupakan Detektif Muzik Warisan Sejati!"`;
+            } else if (pct >= 50) {
+                stars.innerHTML = "⭐ ⭐ ⚪";
+                speech.innerHTML = `"Bello! Tahniah! Anda meraih ${pct}% markah. Percubaan yang sangat baik!"`;
+            } else {
+                stars.innerHTML = "⭐ ⚪ ⚪";
+                speech.innerHTML = `"Usaha yang bagus! Anda meraih ${pct}% markah. Jom ulang semula kembara untuk dapatkan 3 bintang!"`;
+            }
+        }
+
+        function resetAppAndReplay() {
+            quizScore = 0;
+            currentQuizIdx = 0;
+            currentStreak = 0;
+            maxStreak = 0;
+            document.getElementById('streakContainer').classList.add('hidden');
+            renderQuizQuestion();
+            goToSlide(1);
+        }
+
+        window.onload = function() {
+            renderQuizQuestion();
+        };
+    </script>
+</body>
+</html> 
